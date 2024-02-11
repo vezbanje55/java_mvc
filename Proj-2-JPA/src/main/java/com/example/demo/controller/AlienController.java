@@ -54,27 +54,27 @@ public class AlienController {
 	// Moze i da se navede odmah iznad imena klase @RestController, umesto @Controller i to je ekvivalent @ResponseBody (ne mora se ponaosob navoditi). 
 	
 	
-	@RequestMapping("/aliens")
+	@RequestMapping("/api/aliens")
 	@ResponseBody
 	public List<Alien> getAllAliens(){
 		System.out.println("REST poziv za \"aliens\"");
 		
 		// bice konvertovano u JASON listu, a to radi maven jer je importovao jackson-core.jar (java object u jason format)
-		return dao.findAll();
+		return dao.findAll();  // medjutim u pom.xml dodali smo jackson-dataformat-xml pa ce biti konvertovano u xml podatak.
 	}
 	
-	@RequestMapping("/alien/{aid}")
+	@RequestMapping("/api/alien/{aid}")
 	@ResponseBody
 	public Optional<Alien> getSingleAlien(@PathVariable("aid") int aid){
 		System.out.println("REST poziv za SINGLE \"aliena\"");
 		
-		// bice konvertovano u JASON listu, a to radi maven jer je importovao jackson-core.jar (java object u jason format)
-		return dao.findById(aid);
+		// bice konvertovano u JASON objekat, a to radi maven jer je importovao jackson-core.jar (java object u jason format)
+		return dao.findById(aid); // medjutim u pom.xml dodali smo jackson-dataformat-xml pa ce biti konvertovano u xml podatak.
 	}
 	
 	
 	
-	@PostMapping("/alien")
+	@PostMapping("/api/alien")
 	@ResponseBody
 	public Alien add(Alien alien) {
 		System.out.println("Add Alien REST!!");
@@ -84,7 +84,7 @@ public class AlienController {
 		return alien;
 	}
 	
-	@DeleteMapping("/alien/{aid}")
+	@DeleteMapping("/api/alien/{aid}")
 	@ResponseBody
 	public String delete(@PathVariable int aid) {
 		System.out.println("Delete Alien REST!!");
@@ -95,7 +95,7 @@ public class AlienController {
 		return "deleted";
 	}
 	
-	@PutMapping("/alien")
+	@PutMapping("/api/alien")
 	@ResponseBody
 	public Alien update(Alien alien) {
 		System.out.println("Update Alien REST!!");
